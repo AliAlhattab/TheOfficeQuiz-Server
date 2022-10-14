@@ -8,11 +8,8 @@ router.post('/', (req, res) => {
 
     knex('players')
         .insert({name: name})
-        .then(() => {
-            res.status(201).send({
-                success: true,
-                message: 'User has successfully been created'
-            });
+        .then((player) => {
+            res.status(201).json({id: player})
         })
         .catch(() => {
             res.status(400).send({
