@@ -25,4 +25,19 @@ router.post('/', (req, res) => {
 
 })
 
+router.get('/', (req, res) => {
+    knex('players')
+    .select(
+        'id',
+        'name',
+        'score'
+    )
+    .then((player) => {
+        res.status(200).json(player)
+    })
+    .catch((err) => {
+        res.status(404).json({ message: 'Error getting player'})
+    })
+})
+
 module.exports = router;
