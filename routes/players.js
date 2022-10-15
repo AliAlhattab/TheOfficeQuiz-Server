@@ -7,7 +7,9 @@ router.post('/', (req, res) => {
     const {name} = req.body
 
     knex('players')
-        .insert({name: name})
+        .insert({
+            name: name,
+        })
         .then((player) => {
             res.status(201).json({id: player})
         })
@@ -35,6 +37,25 @@ router.get('/', (req, res) => {
     .catch((err) => {
         res.status(404).json({ message: 'Error getting player'})
     })
+})
+
+router.put('/:id', (req, res) => {
+
+    const {score} = req.body
+    const {id} = req.params;
+
+    knex('players')
+    .update({
+        score: score
+    })
+    .where({id: id})
+    .then((player) => {
+        res.status(200).json(player)
+    })
+    .catch((err) => {
+        res.status(404).json({ message: 'Error getting player'})
+    })
+
 })
 
 module.exports = router;
